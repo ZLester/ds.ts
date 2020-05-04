@@ -26,9 +26,7 @@ export default class BinarySearchTree<T> implements BinarySearchTreeI<T> {
         this.root = new TreeNode<T>(value);
     }
 
-    insert (value: T, node?: TreeNode<T>) {
-        node = node || this.root;
-
+    insert (value: T, node: TreeNode<T> = this.root) {
         if (value < node.value) {
             if (node.left === null) {
                 node.left = new TreeNode<T>(value);
@@ -52,5 +50,13 @@ export default class BinarySearchTree<T> implements BinarySearchTreeI<T> {
         }
 
         return 1 + Math.max(this.height(node.left), this.height(node.right));
+    }
+
+    size (node: TreeNode<T> = this.root) {
+        if (node === null) {
+            return 0;
+        }
+
+        return 1 + this.size(node.left) + this.size(node.right);
     }
 }

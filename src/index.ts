@@ -1,4 +1,5 @@
 export { default as BinarySearchTree } from './BinarySearchTree';
+export { default as Heap } from './Heap';
 export { default as LinkedList } from './LinkedList';
 export { default as PriorityQueue } from './PriorityQueue';
 export { default as Queue } from './Queue';

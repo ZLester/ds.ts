@@ -11,7 +11,7 @@ class TreeNode<T> implements TreeNodeI<T> {
         this.value = value;
     }
 
-    addChild (value: T) {
+    insert (value: T) {
         this.children.push(new TreeNode(value));
     }
 }
@@ -19,12 +19,13 @@ class TreeNode<T> implements TreeNodeI<T> {
 interface TreeI<T> {
     root?: TreeNode<T>, 
     height: () => number,
+    size: () => number,
 }
 
 export default class Tree<T> implements TreeI<T> {
     root = null;
 
-    addRoot (value: T) {
+    constructor (value: T) {
         this.root = new TreeNode<T>(value);
     }
 
@@ -33,6 +34,19 @@ export default class Tree<T> implements TreeI<T> {
             return 0;
         }
 
-        return 1 + Math.max(0, ...node.children.map(child => this.height(child)));
+        return 1 + Math.max(
+            0,
+            ...node.children.map(child => this.height(child))
+        );
+    }
+
+    size (node: TreeNode<T> = this.root) {
+        if (node === null) {
+            return 0;
+        }
+
+        return 1 + node.children
+            .map(child => this.size(child))
+            .reduce((a, b) => a + b, 0);
     }
 }
